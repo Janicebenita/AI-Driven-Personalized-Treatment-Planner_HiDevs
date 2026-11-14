@@ -1,0 +1,21 @@
+{
+  "platform": "HiDevs",
+  "project_id": 83,
+  "project_title": "AI-Driven Personalized Treatment Planner",
+  "submission_url": "https://app.hidevs.xyz/projects/83?tab=submission",
+  "status": "submitted-awaiting-review",
+  "confirmation_observed_at_utc": "2026-11-14T16:22:09Z",
+  "confirmation": "Submission successful!",
+  "review_window_shown": "within 24 hours",
+  "repository_url": "https://github.com/Janicebenita/treatment_planner_hidevs",
+  "demo_url": "https://github.com/Janicebenita/treatment_planner_hidevs/releases/download/v1.0.0/careweave-demo.mp4",
+  "repository_public_verified": true,
+  "demo_public_http_status_verified": 200,
+  "demo_duration_seconds": 134,
+  "demo_format": "H.264 MP4, 1280x720, silent",
+  "demo_provenance": "Rendered walkthrough of actual synthetic pipeline outputs; not a UI or live generation recording",
+  "billable_cloud_deployment": "disabled at the participant's explicit request",
+  "live_groq_generation": "not configured",
+  "score": null,
+  "leaderboard_placement": null
+}

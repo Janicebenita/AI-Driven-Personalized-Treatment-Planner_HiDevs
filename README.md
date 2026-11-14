@@ -6,6 +6,8 @@
 
 The silent video renders actual synthetic pipeline outputs, including renal and urgent-case counterfactuals. It is not a screen recording or live model-generation recording. The full Streamlit interface runs from this repository; live Groq synthesis requires a server-side key and billable Google Cloud deployment remains disabled at the participant's request.
 
+**HiDevs status:** submitted successfully on 14 November 2026; awaiting review. The portal indicated review within 24 hours. [Submission receipt](docs/submission-receipt.json). No score or leaderboard placement is claimed.
+
 CareWeave connects diagnosis, history, renal function, verified pharmacogenetics, lifestyle and preferences into a treatment discussion that a clinician can inspect. The initial pathway focuses on **non-pregnant adults with confirmed type 2 diabetes**. It is a research prototype for **synthetic cases only**, not a prescribing system.
 
 ## Run in 30 seconds
