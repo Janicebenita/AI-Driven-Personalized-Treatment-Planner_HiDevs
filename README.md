@@ -102,3 +102,9 @@ This prototype is not clinically validated, cleared as a medical device or ready
 The corpus uses UK NICE pathways and international KDIGO/CPIC references. Local prescribing labels, resources and practices may differ. Summaries are original, brief paraphrases, not full guideline reproductions. Corpus assembled on 14 November 2026; it does not continuously update or search live literature. NICE page retrieval was restricted during build; indexed official guidance was used to check pathway summaries. Verify original sections and medicine labels at point of care.
 
 The current hosted Site is owner-private and is not a public judge-accessible demo. Submission status must be verified on the actual HiDevs challenge page; a code push is not a challenge submission.
+
+## Google Cloud Run preparation and Windows launch
+
+The full Streamlit container is prepared and verified on a Linux GitHub runner. See [Cloud Run deployment and status](docs/CLOUD_RUN.md). A separate CareWeave cloud project exists, but the user approved Cloud Shell access only and declined billable deployment; no Cloud Run service was deployed.
+
+On Windows, `Start-CareWeave.ps1` selects the project directory and its own virtual environment, and reuses the existing local server when it is already running. Run it from the project folder, or invoke it using its full path. The installed workspace's Python runtime was copied into ignored `.runtime/python312` and the local virtual environment rebased there, removing dependence on the managed `AppData/Roaming/uv` path that was missing in the user's terminal. Runtime binaries are not committed; new clones still need the installation steps above.

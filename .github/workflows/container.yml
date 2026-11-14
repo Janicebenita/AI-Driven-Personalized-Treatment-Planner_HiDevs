@@ -1,0 +1,46 @@
+name: Verify Cloud Run container
+on:
+  workflow_dispatch:
+  push:
+    branches: ['codex/cloud-run-deployment']
+    paths:
+      - Dockerfile
+      - .dockerignore
+      - requirements.txt
+      - deploy/**
+      - rag/**
+      - data/**
+      - src/**
+      - scripts/plan-stdio.mjs
+      - streamlit_app.py
+      - .streamlit/config.toml
+      - .github/workflows/container.yml
+permissions:
+  contents: read
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: careweave:cloud-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Verify startup, Node safety core, and actual semantic retrieval
+        run: |
+          docker run -d --name careweave-test -e PORT=8080 -p 8080:8080 careweave:cloud-test
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8080/_stcore/health; then break; fi
+            sleep 2
+          done
+          curl --fail http://127.0.0.1:8080/_stcore/health
+          docker exec careweave-test python -c "from rag.pipeline import safety_plan; import json; p=json.load(open('data/synthetic-cases.json'))['renal']; assert safety_plan(p)['status']=='review-required'"
+          docker exec careweave-test python -c "from rag.retrieval import KnowledgeBase; kb=KnowledgeBase(allow_fallback=False); assert kb.search('SLCO1B1 poor function simvastatin muscle myopathy',1)[0]['source_id']=='CPIC-STATIN'; print('Actual MiniLM + Chroma retrieval passed in container')"
+      - name: Container logs
+        if: always()
+        run: docker logs careweave-test || true
