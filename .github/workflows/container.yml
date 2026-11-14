@@ -2,7 +2,7 @@ name: Verify Cloud Run container
 on:
   workflow_dispatch:
   push:
-    branches: ['codex/cloud-run-deployment']
+    branches: [main, 'codex/cloud-run-deployment', 'codex/review-improvements']
     paths:
       - Dockerfile
       - .dockerignore
@@ -15,8 +15,14 @@ on:
       - streamlit_app.py
       - .streamlit/config.toml
       - .github/workflows/container.yml
+  pull_request:
+    branches: [main]
+    paths: ['Dockerfile', 'requirements.txt', 'deploy/**', 'rag/**', 'data/**', 'src/**', 'streamlit_app.py', '.github/workflows/container.yml']
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
   container:
     runs-on: ubuntu-latest

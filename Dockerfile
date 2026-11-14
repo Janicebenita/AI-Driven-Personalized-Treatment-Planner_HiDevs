@@ -27,7 +27,7 @@ COPY .streamlit/config.toml ./.streamlit/config.toml
 COPY streamlit_app.py ./
 COPY deploy/ ./deploy/
 # Download the pinned public model during the build, not during a visitor's request.
-RUN python deploy/cache_model.py \
+RUN python -m deploy.cache_model \
     && mkdir -p /app/.careweave \
     && chown -R careweave:careweave /app/.careweave /opt/huggingface
 USER careweave

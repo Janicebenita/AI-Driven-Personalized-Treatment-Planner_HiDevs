@@ -17,3 +17,6 @@ artifacts
 *.zip
 docs
 tests
+.coverage*
+.ruff_cache
+htmlcov
