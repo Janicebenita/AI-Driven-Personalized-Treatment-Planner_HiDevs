@@ -8,3 +8,9 @@ node_modules/
 .idea/
 .vscode/
 *.log
+.env
+.env.*
+!.env.example
+dist/
+artifacts/
+.openai/*.zip
