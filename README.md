@@ -1,1 +1,9 @@
-# AI-Driven-Personalized-Treatment-Planner_HiDevs
+# AI-Driven Personalized Treatment Planner
+
+This project is automatically generated.
+
+## Installation
+
+```sh
+pip install -r requirements.txt
+```
