@@ -3,6 +3,18 @@ on:
   workflow_dispatch:
   push:
     branches: ['codex/cloud-run-deployment']
+    paths:
+      - Dockerfile
+      - .dockerignore
+      - requirements.txt
+      - deploy/**
+      - rag/**
+      - data/**
+      - src/**
+      - scripts/plan-stdio.mjs
+      - streamlit_app.py
+      - .streamlit/config.toml
+      - .github/workflows/container.yml
 permissions:
   contents: read
 jobs:
