@@ -2,6 +2,8 @@
 
 Project created at the participant's request: `careweave-514715` in organization `615607503345`.
 
+Status: the user authorized Cloud Shell access only and explicitly declined billable deployment. No Cloud Build job, Artifact Registry repository or Cloud Run service has been created by this workflow. The Docker image passed GitHub's Linux build, HTTP startup, shared Node safety-core and actual MiniLM/Chroma retrieval checks in [this verification run](https://github.com/Janicebenita/AI-Driven-Personalized-Treatment-Planner_HiDevs/actions/runs/43612561526). Deployment remains a separate, unapproved action.
+
 ## Container
 
 The Dockerfile includes Python 3.12, Node 22, CPU-only PyTorch, the Python requirements and the pinned public MiniLM model. It runs as an unprivileged user, listens on `0.0.0.0:$PORT`, and preserves Streamlit's default CORS/XSRF protections. Local virtual environments, runtime copies, `.env` files and Streamlit secrets are excluded from Docker and Google Cloud source uploads. No credentials are built into the image.
