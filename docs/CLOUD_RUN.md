@@ -2,7 +2,7 @@
 
 Project created at the participant's request: `careweave-514715` in organization `615607503345`.
 
-Status: the user authorized Cloud Shell access only and explicitly declined billable deployment. No Cloud Build job, Artifact Registry repository or Cloud Run service has been created by this workflow. The Docker image passed GitHub's Linux build, HTTP startup, shared Node safety-core and actual MiniLM/Chroma retrieval checks in [this verification run](https://github.com/Janicebenita/AI-Driven-Personalized-Treatment-Planner_HiDevs/actions/runs/43612561526). Deployment remains a separate, unapproved action.
+Status: the user authorized Cloud Shell access only and explicitly declined billable deployment. No Cloud Build job, Artifact Registry repository or Cloud Run service has been created by this workflow. The Docker image passed GitHub's Linux build, HTTP startup, shared Node safety-core and actual MiniLM/Chroma retrieval checks in [this verification run](https://github.com/Janicebenita/treatment_planner_hidevs/actions/runs/43612561526). Deployment remains a separate, unapproved action.
 
 ## Container
 
@@ -17,8 +17,8 @@ The container health check verifies HTTP startup. The container CI also checks t
 Use a Google Cloud environment with `gcloud`, select the intended account/project, and enable the Cloud Run, Cloud Build and Artifact Registry APIs if required. Do not grant broad IAM roles to bypass an organization-policy failure. Source deployment needs the roles documented by Google for the deployer and build service account.
 
 ```sh
-git clone https://github.com/Janicebenita/AI-Driven-Personalized-Treatment-Planner_HiDevs.git
-cd AI-Driven-Personalized-Treatment-Planner_HiDevs
+git clone https://github.com/Janicebenita/treatment_planner_hidevs.git
+cd treatment_planner_hidevs
 bash deploy/cloud-run.sh careweave-514715 asia-south1
 ```
 

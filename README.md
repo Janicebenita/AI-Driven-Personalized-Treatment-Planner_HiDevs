@@ -2,6 +2,10 @@
 
 **Personalized thinking. Evidence-grounded decisions.**
 
+**HiDevs submission repository:** `treatment_planner_hidevs` · [Demo video](https://github.com/Janicebenita/treatment_planner_hidevs/releases/download/v1.0.0/careweave-demo.mp4) · [Video transcript](docs/demo/transcript.md) · [Synthetic patient data](data/synthetic-cases.json)
+
+The silent video renders actual synthetic pipeline outputs, including renal and urgent-case counterfactuals. It is not a screen recording or live model-generation recording. The full Streamlit interface runs from this repository; live Groq synthesis requires a server-side key and billable Google Cloud deployment remains disabled at the participant's request.
+
 CareWeave connects diagnosis, history, renal function, verified pharmacogenetics, lifestyle and preferences into a treatment discussion that a clinician can inspect. The initial pathway focuses on **non-pregnant adults with confirmed type 2 diabetes**. It is a research prototype for **synthetic cases only**, not a prescribing system.
 
 ## Run in 30 seconds
