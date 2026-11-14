@@ -3,15 +3,14 @@ import json
 import shutil
 import subprocess
 import sys
-import textwrap
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from rag.pipeline import create_report
-from rag.retrieval import KnowledgeBase
+from rag.pipeline import create_report  # noqa: E402 - support direct script execution
+from rag.retrieval import KnowledgeBase  # noqa: E402
 
 OUT = ROOT / 'docs/demo'
 WORK = ROOT / '.careweave/demo-frames'

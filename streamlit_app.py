@@ -2,6 +2,7 @@
 import hashlib
 import json
 import os
+import subprocess
 import uuid
 
 import streamlit as st
@@ -81,12 +82,12 @@ with planner_tab:
                 else:
                     try:
                         report = create_report(profile, get_knowledge_base(backend), ai)
-                    except Exception as exc:
+                    except (ImportError, OSError, RuntimeError, ValueError) as exc:
                         report = gate
                         report['retrievalError'] = f'Semantic retrieval unavailable ({type(exc).__name__}). Check model download and vector backend dependencies. This report uses rules-only evidence.'
                 st.session_state.report = report
                 st.session_state.report_digest = digest
-            except Exception as exc:
+            except (OSError, RuntimeError, ValueError, subprocess.TimeoutExpired) as exc:
                 st.error('The profile could not be processed: ' + str(exc))
     with right:
         report = st.session_state.get('report')
@@ -142,7 +143,7 @@ with planner_tab:
                         save_synthetic_history(report, st.session_state.session_id, consent,
                             os.environ['MONGODB_URI'], os.getenv('MONGODB_DATABASE', 'careweave'))
                         st.success('Synthetic report saved. MongoDB expiry cleanup is asynchronous.')
-                    except Exception:
+                    except (OSError, RuntimeError, ValueError):
                         st.error('History save failed. The report remains available in this session.')
 
 with library_tab:

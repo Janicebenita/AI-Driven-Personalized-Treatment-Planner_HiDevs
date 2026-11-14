@@ -2,11 +2,17 @@
 
 **Personalized thinking. Evidence-grounded decisions.**
 
+[![Software checks](https://github.com/Janicebenita/treatment_planner_hidevs/actions/workflows/verify.yml/badge.svg)](https://github.com/Janicebenita/treatment_planner_hidevs/actions/workflows/verify.yml)
+[![Semantic integration and coverage](https://github.com/Janicebenita/treatment_planner_hidevs/actions/workflows/semantic.yml/badge.svg)](https://github.com/Janicebenita/treatment_planner_hidevs/actions/workflows/semantic.yml)
+[![Container checks](https://github.com/Janicebenita/treatment_planner_hidevs/actions/workflows/container.yml/badge.svg)](https://github.com/Janicebenita/treatment_planner_hidevs/actions/workflows/container.yml)
+
+**Verification evidence:** [testing scope and reproducible commands](docs/TESTING.md). The suite includes real model/tokenizer/Chroma/Node integration; external provider I/O is mocked, and live provider generation is not claimed. CI now reports branch-inclusive Python coverage, lints code, and builds/tests the container for relevant main-branch and pull-request changes. Coverage is scoped to `rag/` and `deploy/`, not the entire application.
+
 **HiDevs submission repository:** `treatment_planner_hidevs` · [Demo video](https://github.com/Janicebenita/treatment_planner_hidevs/releases/download/v1.0.0/careweave-demo.mp4) · [Video transcript](docs/demo/transcript.md) · [Synthetic patient data](data/synthetic-cases.json)
 
 The silent video renders actual synthetic pipeline outputs, including renal and urgent-case counterfactuals. It is not a screen recording or live model-generation recording. The full Streamlit interface runs from this repository; live Groq synthesis requires a server-side key and billable Google Cloud deployment remains disabled at the participant's request.
 
-**HiDevs status:** submitted successfully on 14 November 2026; awaiting review. The portal indicated review within 24 hours. [Submission receipt](docs/submission-receipt.json). No score or leaderboard placement is claimed.
+**HiDevs status:** submitted and approved on 14 November 2026. [Submission receipt](docs/submission-receipt.json). Updating this repository does not automatically re-evaluate a completed HiDevs submission.
 
 CareWeave connects diagnosis, history, renal function, verified pharmacogenetics, lifestyle and preferences into a treatment discussion that a clinician can inspect. The initial pathway focuses on **non-pregnant adults with confirmed type 2 diabetes**. It is a research prototype for **synthetic cases only**, not a prescribing system.
 
@@ -97,7 +103,7 @@ The lightweight web app uses no patient persistence, cookies, analytics, externa
 
 ## Verification
 
-25 JavaScript checks cover renal boundaries, unsupported/urgent profiles, selected medication risks, input bounds, citation integrity, sparse retrieval, provider contracts and API handling. 14 Python checks cover preprocessing, provenance, document/query windowing, semantic report assembly, provider validation, history consent and the Streamlit urgent-case/edit-invalidation flow. A passing software test is not evidence of clinical validity.
+25 JavaScript checks cover renal boundaries, unsupported/urgent profiles, selected medication risks, input bounds, citation integrity, sparse retrieval, provider contracts and API handling. 35 Python checks cover preprocessing, provenance, document/query windowing, provider failures, history contracts, the Streamlit safety flow and five real-model integration scenarios. The real-model tests run only with the explicit semantic-test opt-in. A passing software test is not evidence of clinical validity.
 
 Browser QA confirmed case switching, safety/evidence tabs, stale-plan invalidation, urgent-plan withholding and a narrow layout. See `docs/VERIFICATION.md` for the verification record and limitations.
 

@@ -19,3 +19,7 @@ artifacts/
 .streamlit/secrets.toml
 .runtime/
 docs/demo/*.mp4
+.coverage
+.coverage.*
+htmlcov/
+.ruff_cache/

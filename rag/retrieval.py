@@ -3,39 +3,40 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import tempfile
 from pathlib import Path
 
+from .config import EmbeddingConfig
 from .ingestion import ROOT, chunk_corpus, load_corpus
-
-MODEL_ID = 'sentence-transformers/all-MiniLM-L6-v2'
-# Verified Hugging Face snapshot used by the retrieval benchmark.
-MODEL_REVISION = '1110a243fdf4706b3f48f1d95db1a4f5529b4d41'
 
 
 class KnowledgeBase:
     def __init__(self, directory: Path | None = None, backend: str = 'chroma',
-                 allow_fallback: bool = True):
+                 allow_fallback: bool = True, config: EmbeddingConfig | None = None):
         if backend not in ('chroma', 'faiss'):
             raise ValueError('VECTOR_BACKEND must be chroma or faiss.')
-        from sentence_transformers import SentenceTransformer
+        self.config = config or EmbeddingConfig.from_env()
+        self.model_id = self.config.model_id
         from huggingface_hub import snapshot_download
         from huggingface_hub.errors import LocalEntryNotFoundError
+        from sentence_transformers import SentenceTransformer
         try:
-            snapshot = snapshot_download(MODEL_ID, revision=MODEL_REVISION, local_files_only=True)
+            snapshot = snapshot_download(self.model_id, revision=self.config.revision, local_files_only=True)
         except LocalEntryNotFoundError:
-            snapshot = snapshot_download(MODEL_ID, revision=MODEL_REVISION,
+            snapshot = snapshot_download(self.model_id, revision=self.config.revision,
                 allow_patterns=['*.json', '*.safetensors', 'vocab.txt', 'tokenizer.*',
                                 '*.txt', '1_Pooling/*'])
         # Load from a pinned local snapshot, avoiding remote template/metadata lookups on reruns.
         self.encoder = SentenceTransformer(snapshot, local_files_only=True,
                                            device='cpu', trust_remote_code=False)
+        if self.config.chunk_tokens + 2 > self.encoder.max_seq_length:
+            raise ValueError('CHUNK_TOKENS exceeds the selected embedding model context length.')
         self.records = load_corpus()
-        self.chunks = chunk_corpus(self.records, self.encoder.tokenizer)
-        self.model_revision = MODEL_REVISION
+        self.chunks = chunk_corpus(self.records, self.encoder.tokenizer,
+                                   self.config.chunk_tokens, self.config.overlap_tokens)
+        self.model_revision = self.config.revision
         fingerprint = hashlib.sha256(json.dumps({
-            'model': MODEL_ID, 'revision': self.model_revision, 'version': 1,
+            'model': self.model_id, 'revision': self.model_revision, 'version': 1,
             'chunks': self.chunks}, sort_keys=True).encode()).hexdigest()
         self.fingerprint = fingerprint
         directory = directory or ROOT / '.careweave' / 'vectors'
@@ -71,7 +72,7 @@ class KnowledgeBase:
                                            documents=[c['text'] for c in self.chunks],
                                            metadatas=[c['metadata'] for c in self.chunks],
                                            embeddings=self.vectors.tolist())
-            except Exception as exc:
+            except (ImportError, OSError, RuntimeError) as exc:
                 if not allow_fallback:
                     raise RuntimeError('Chroma initialization failed; review compatibility before enabling FAISS.') from exc
                 self.fallback_reason = f'Chroma unavailable ({type(exc).__name__}); using FAISS.'
@@ -85,7 +86,7 @@ class KnowledgeBase:
             self.index.add(self.vectors)
             faiss.write_index(self.index, str(self.directory / 'evidence.faiss'))
         (self.directory / 'manifest.json').write_text(json.dumps({
-            'model': MODEL_ID, 'model_revision': self.model_revision,
+            'model': self.model_id, 'model_revision': self.model_revision,
             'corpus_sha256': fingerprint, 'backend': self.backend,
             'chunks': self.chunks}, indent=2), encoding='utf-8')
 
@@ -101,8 +102,9 @@ class KnowledgeBase:
                                          return_offsets_mapping=True)['offset_mapping']
         if not offsets:
             raise ValueError('Query has no encodable tokens.')
-        parts = [query[offsets[i][0]:offsets[min(i + 180, len(offsets)) - 1][1]]
-                 for i in range(0, len(offsets), 180)]
+        window = getattr(self, 'config', EmbeddingConfig()).chunk_tokens
+        parts = [query[offsets[i][0]:offsets[min(i + window, len(offsets)) - 1][1]]
+                 for i in range(0, len(offsets), window)]
         encoded = self.encoder.encode(parts, normalize_embeddings=True, show_progress_bar=False)
         vector = encoded.mean(axis=0, keepdims=True)
         norm = float(np.linalg.norm(vector))

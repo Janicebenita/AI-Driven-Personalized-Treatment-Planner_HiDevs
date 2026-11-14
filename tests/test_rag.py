@@ -1,16 +1,16 @@
 import copy
+import importlib.util
 import io
 import json
 import re
-import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from rag.history import save_synthetic_history
 from rag.ingestion import ROOT, chunk_corpus, extract_local_document, load_corpus, normalize
 from rag.pipeline import create_report, groq_briefing, safety_plan, validate_briefing
-from rag.history import save_synthetic_history
 
 
 class WordTokenizer:
@@ -119,6 +119,7 @@ class PipelineTests(unittest.TestCase):
     @unittest.skipUnless(importlib.util.find_spec('numpy'), 'NumPy is needed for embedding-window checks.')
     def test_long_queries_are_windowed_and_renormalized(self):
         import numpy as np
+
         from rag.retrieval import KnowledgeBase
         class Encoder:
             tokenizer = WordTokenizer()

@@ -1,0 +1,17 @@
+{
+  "scope": [
+    "rag/",
+    "deploy/"
+  ],
+  "measurement": "Python statements and branches",
+  "covered_statements": 289,
+  "total_statements": 324,
+  "covered_branches": 78,
+  "total_branches": 102,
+  "combined_coverage_percent": 86.15,
+  "python_tests_passed": 35,
+  "real_model_integration_tests_included": 5,
+  "javascript_tests_passed_separately": 25,
+  "generative_provider_network": "mocked in integration tests; live provider not configured",
+  "clinical_validation": false
+}

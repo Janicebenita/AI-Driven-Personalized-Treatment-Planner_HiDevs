@@ -1,0 +1,49 @@
+name: Semantic integration and coverage
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, 'codex/review-improvements']
+    paths: ['rag/**', 'deploy/**', 'src/**', 'data/**', 'tests/**', 'requirements*.txt', 'pyproject.toml', '.github/workflows/semantic.yml']
+  pull_request:
+    branches: [main]
+    paths: ['rag/**', 'deploy/**', 'src/**', 'data/**', 'tests/**', 'requirements*.txt', 'pyproject.toml', '.github/workflows/semantic.yml']
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  semantic-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CAREWEAVE_RUN_SEMANTIC_TESTS: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: minilm-1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+      - run: pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - run: coverage run -m unittest discover -s tests -p 'test_*.py' -v
+      - run: coverage report
+      - name: Publish readable coverage summary
+        run: coverage report >> "$GITHUB_STEP_SUMMARY"
+      - run: coverage xml
+      - run: coverage json -o artifacts/coverage.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-pipeline-coverage
+          path: artifacts/coverage.*

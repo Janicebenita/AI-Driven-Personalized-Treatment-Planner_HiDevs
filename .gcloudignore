@@ -15,3 +15,6 @@ artifacts/
 .openai/
 *.tar.gz
 *.zip
+.coverage*
+.ruff_cache/
+htmlcov/

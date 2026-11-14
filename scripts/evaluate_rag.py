@@ -33,7 +33,7 @@ def main():
         rows.append({'query': query, 'expected': expected, 'retrieved': source_ids,
                      'hit_at_3': expected in source_ids,
                      'elapsed_ms': round((time.perf_counter() - start) * 1000, 2)})
-    result = {'model': 'sentence-transformers/all-MiniLM-L6-v2',
+    result = {'model': kb.model_id,
               'model_revision': kb.model_revision, 'backend': kb.backend,
               'corpus_sha256': kb.fingerprint, 'chunks': len(kb.chunks),
               'setup_ms': setup_ms, 'hit_at_3': sum(r['hit_at_3'] for r in rows) / len(rows),
