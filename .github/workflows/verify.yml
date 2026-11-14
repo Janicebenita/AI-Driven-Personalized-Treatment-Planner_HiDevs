@@ -11,5 +11,18 @@ jobs:
         with:
           node-version: '22'
       - run: npm test
+      - run: node scripts/export-corpus.mjs --check
       - run: npm run build
       - run: node --check dist/server/index.js
+  python-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install streamlit==1.67.0 python-dotenv==1.2.4
+      - run: python -m unittest discover -s tests -p 'test_*.py' -v

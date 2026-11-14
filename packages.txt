@@ -1,0 +1,2 @@
+# Streamlit Community Cloud: Node.js is required by the shared deterministic safety core.
+nodejs

@@ -6,7 +6,7 @@ CareWeave connects diagnosis, history, renal function, verified pharmacogenetics
 
 ## Run in 30 seconds
 
-Requires Node.js 20 or newer. No packages, Python environment or database are required.
+The lightweight web track requires Node.js 20 or newer, with no packages or database. For the **HiDevs semantic RAG / Streamlit track**, follow the next section.
 
 ```sh
 npm start
@@ -21,6 +21,34 @@ npm run build
 
 The build emits a single dependency-free Cloudflare Worker at `dist/server/index.js`, with the web assets embedded. The local server and hosted Worker use the same planner and API handlers.
 
+## HiDevs seven-step semantic RAG track
+
+This track adds **local MiniLM sentence embeddings, persistent Chroma retrieval, a visible FAISS compatibility fallback, Groq/Llama synthesis, Streamlit and optional MongoDB synthetic history**. It calls the same Node safety core; clinical rules are not duplicated in Python.
+
+Use Python 3.12 and Node.js 20+. On Windows with `uv`:
+
+```powershell
+uv venv --python 3.12 .venv
+uv pip install --python .venv/Scripts/python.exe -r requirements.txt
+.venv/Scripts/python.exe -m streamlit run streamlit_app.py
+```
+
+On Linux/Codespaces:
+
+```sh
+python3.12 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python -m streamlit run streamlit_app.py
+```
+
+Open port **8501**. First semantic plan downloads the public `sentence-transformers/all-MiniLM-L6-v2` model. It needs network access and enough local memory for PyTorch. Public evidence embeddings persist in ignored `.careweave/vectors/`; patient query embeddings are not saved. Chroma is attempted first. If it is incompatible, install `requirements-faiss.txt`; fallback is visible in the report. No neural retrieval is claimed when initialization fails.
+
+Set `GROQ_API_KEY` in an untracked `.env`, and optionally `GROQ_MODEL` (default `llama-3.3-70b-versatile`). Choose the sidebar opt-in to send **synthetic** context to Groq. Model access, billing and limits depend on your account; this project does not guarantee a free tier or model entitlement. Missing credentials leave semantic retrieval available with no model generation.
+
+The Python track is **not running in the hosted Cloudflare Site**, whose memory/runtime cannot support this local Python stack. Deploy `streamlit_app.py` on a Python host; include Node.js for the shared safety core, `requirements.txt`, server-side environment variables and adequate resources. `packages.txt` supplies the Node OS package for Streamlit Community Cloud. Deployment to that service has not been performed.
+
+See [the seven-step implementation guide](docs/SEVEN_STEPS.md) for ingestion, chunking, indexing, evaluation and hosting commands.
+
 ## What makes the demo useful
 
 | Evaluation criterion | Demonstrated behavior |
@@ -32,11 +60,11 @@ The build emits a single dependency-free Cloudflare Worker at `dist/server/index
 | Vector search | Actual sparse TF-IDF vectors ranked by cosine similarity. Rule-required sources are retained outside the top retrieval results. This is not neural embedding search. |
 | Prompt engineering | Server-side, evidence-only instructions; patient context treated as untrusted; strict JSON schema and citation-ID validation; independent safety rules. |
 
-## Optional live GenAI
+## Optional live GenAI in the lightweight web track
 
-Copy `.env.example` to `.env` and configure `OPENAI_API_KEY` and `OPENAI_MODEL` with a model available to your account. Restart the server. Secrets stay server-side and are never included in browser JavaScript. The hosted version uses equivalent runtime environment variables, configured separately from the local file.
+Copy `.env.example` to `.env`. Configure `GROQ_API_KEY` and optionally `GROQ_MODEL` for Groq/Llama, or `OPENAI_API_KEY` and `OPENAI_MODEL` for the existing OpenAI integration. Groq is selected when its key is present. Restart the server. Secrets stay server-side and are never included in browser JavaScript. The hosted version uses equivalent runtime environment variables, configured separately from the local file.
 
-Select **Add AI evidence briefing** to explicitly send the synthetic profile, reviewed plan and retrieved evidence to the OpenAI Responses API. A separate briefing summarises the evidence and uncertainty; it cannot change deterministic options, risk flags or safety gates. The request uses `store: false`; this is not a claim of zero retention or healthcare compliance. Provider usage may incur charges. No real patient information should be entered.
+Select **Add AI evidence briefing** to explicitly send the synthetic profile, reviewed plan and retrieved evidence to the configured provider. A separate briefing summarises evidence and uncertainty; it cannot change deterministic options, risk flags or safety gates. OpenAI requests use `store: false`; neither provider integration claims zero retention or healthcare compliance. Provider usage may incur charges. No real patient information should be entered. Groq JSON mode is locally schema-checked, rather than advertised as constrained decoding.
 
 Missing configuration, provider failure, invalid output or unknown citation IDs preserve rules-only mode with a visible explanation. Live inference has **not** been tested with a real provider credential in this build. Provider behavior is exercised through mocked contract tests.
 
@@ -59,11 +87,11 @@ flowchart LR
 
 `src/planner.mjs` owns validation, sparse vector retrieval and deterministic planning. `src/evidence.mjs` is the bounded evidence corpus. `src/service.mjs` owns the optional Responses API call. `src/worker.mjs` exposes the API and static assets. `public/` provides the responsive interface. `tests/` contains safety, retrieval, API and provider-contract checks.
 
-The app uses no patient persistence, cookies, analytics, external fonts or client API keys. Input changes invalidate the previous report. Export includes source IDs, patient context, risks, missing information, timestamps and limitations. Printing includes the complete report across all tabs.
+The lightweight web app uses no patient persistence, cookies, analytics, external fonts or client API keys. The Streamlit track optionally saves synthetic reports only after explicit opt-in and MongoDB configuration, with a seven-day expiry index. This is session-scoped report history, not a conversational chatbot. No production authentication or medical data storage is claimed. Input changes invalidate the previous report. Export includes source IDs, patient context, risks, missing information, timestamps and limitations. Web-track printing includes the complete report across all tabs.
 
 ## Verification
 
-22 automated checks cover renal boundary values (19/20 and 29/30), urgent and unsupported profiles, missing allergies/medicines, genetics, selected high-risk medicines, input bounds, citation integrity, query-sensitive retrieval, API origin/type/size checks, provider failure and AI response validation. A passing software test is not evidence of clinical validity.
+25 JavaScript checks cover renal boundaries, unsupported/urgent profiles, selected medication risks, input bounds, citation integrity, sparse retrieval, provider contracts and API handling. 14 Python checks cover preprocessing, provenance, document/query windowing, semantic report assembly, provider validation, history consent and the Streamlit urgent-case/edit-invalidation flow. A passing software test is not evidence of clinical validity.
 
 Browser QA confirmed case switching, safety/evidence tabs, stale-plan invalidation, urgent-plan withholding and a narrow layout. See `docs/VERIFICATION.md` for the verification record and limitations.
 

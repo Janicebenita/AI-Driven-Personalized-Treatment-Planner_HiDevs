@@ -1,12 +1,12 @@
 // Build injects HTML, CSS and client JavaScript into ASSETS in the deployed module.
-import {makePlan} from './service.mjs';
+import {makePlan,providerConfig} from './service.mjs';
 import {DEMOS} from './planner.mjs';
 import {EVIDENCE} from './evidence.mjs';
 export async function handle(request, env={}, assets={}){
  const url=new URL(request.url);
  const headers={'X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"};
  const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{...headers,'Content-Type':'application/json'}});
- if(url.pathname==='/api/status'&&request.method==='GET')return json({aiConfigured:!!(env.OPENAI_API_KEY&&env.OPENAI_MODEL),version:'careweave-1.0.0'});
+ if(url.pathname==='/api/status'&&request.method==='GET'){const provider=providerConfig(env);return json({aiConfigured:!!provider,provider:provider?.name||null,version:'careweave-1.0.0'});}
  if(url.pathname==='/api/demos'&&request.method==='GET')return json({demos:DEMOS,evidence:EVIDENCE});
  if(url.pathname==='/api/plan'&&request.method==='POST'){
  if(request.headers.get('Origin')&&request.headers.get('Origin')!==url.origin)return json({error:'Cross-origin requests are not allowed.'},403);

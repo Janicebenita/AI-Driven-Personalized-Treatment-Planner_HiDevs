@@ -14,7 +14,7 @@ CareWeave demonstrates a focused adult type 2 diabetes workflow. It combines str
 
 ## Technical approach
 
-A dependency-free JavaScript core runs in a local Node server and a deployable Cloudflare Worker. TF-IDF vectors and cosine similarity rank original summaries of NICE, KDIGO and CPIC evidence. Rule-linked sources are retained regardless of retrieval rank. The optional OpenAI Responses API integration uses server-side credentials, patient-data isolation in the prompt, strict structured output and citation-ID checks. It never replaces the independent safety gate.
+A shared JavaScript safety core runs in a local Node server and a deployable Cloudflare Worker. The Python/Streamlit track adds local MiniLM embeddings and persistent Chroma cosine retrieval, with FAISS as a visible compatibility fallback. It normalizes and token-chunks a provenance-preserving corpus of NICE, KDIGO and CPIC summaries. Rule-linked sources remain available regardless of retrieval rank. Optional Groq/Llama synthesis uses server-side credentials, evidence-only prompts, JSON mode and local schema/citation checks. Optional MongoDB history stores synthetic reports only after explicit opt-in. The lightweight Worker track retains TF-IDF retrieval and now also supports Groq, alongside the existing OpenAI option.
 
 ## Demonstration
 
@@ -22,11 +22,11 @@ Three synthetic cases show renal/genetic, lifestyle and complex-care profiles. C
 
 ## Validation and limitations
 
-22 automated software checks passed. Browser checks confirmed core case switching, evidence/safety tabs, input-change invalidation, urgent withholding and narrow-layout fit. Live AI inference is not credential-configured or provider-tested. This is an educational research prototype, not a clinically validated system. It supports a bounded adult diabetes pathway, not all diagnoses; allergy and interaction checks are incomplete. No real patient data is used or persisted. The hosted Site currently requires owner access.
+25 JavaScript and 14 Python checks passed, including Streamlit urgent-gate and report-invalidation checks. The actual MiniLM/Chroma index retrieved the expected source in the top three for all five developer-authored queries. This tiny retrieval benchmark is not a held-out clinical or generation-quality evaluation. Live Groq inference and MongoDB persistence remain unconfigured and untested. The bounded adult diabetes pathway is not clinically validated, and allergy/interaction checks are incomplete. The hosted owner-private Site uses the lightweight JavaScript track; the full semantic Streamlit track is available in the repository and needs a separate Python deployment.
 
 ## Built with
 
-JavaScript, Node.js, HTML, CSS, TF-IDF vector search, Cloudflare Worker, optional OpenAI Responses API.
+Python, Streamlit, Sentence Transformers / MiniLM, Chroma, optional FAISS, Groq / Llama, optional MongoDB, JavaScript / Node.js, Cloudflare Worker, TF-IDF and optional OpenAI Responses API.
 
 ## Submission status
 
