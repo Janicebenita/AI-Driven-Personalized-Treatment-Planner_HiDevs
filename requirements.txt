@@ -1,1 +1,1 @@
-# Add your project dependencies here
+# No Python dependencies. This project runs on Node.js >=20 using npm start.
