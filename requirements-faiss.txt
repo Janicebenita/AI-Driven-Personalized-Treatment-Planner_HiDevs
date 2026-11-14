@@ -1,0 +1,2 @@
+# Install only if the Chroma backend cannot run on your platform.
+faiss-cpu>=1.9,<2

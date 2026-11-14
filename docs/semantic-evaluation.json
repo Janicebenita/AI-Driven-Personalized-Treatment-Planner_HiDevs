@@ -1,0 +1,67 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "backend": "chroma",
+  "corpus_sha256": "2c414730fdf41df48501c3169f2b6c20817bd3ed6ee6b5dd99b38d33e2d29b83",
+  "chunks": 6,
+  "setup_ms": 14801.29,
+  "hit_at_3": 1.0,
+  "cases": [
+    {
+      "query": "SLCO1B1 poor function simvastatin myopathy muscle toxicity",
+      "expected": "CPIC-STATIN",
+      "retrieved": [
+        "CPIC-STATIN",
+        "NG28-INITIAL",
+        "NG28-CARE"
+      ],
+      "hit_at_3": true,
+      "elapsed_ms": 37.06
+    },
+    {
+      "query": "chronic kidney disease eGFR 25 diabetes renal metformin pathway",
+      "expected": "NG28-RENAL",
+      "retrieved": [
+        "NG28-RENAL",
+        "NG28-INITIAL",
+        "KDIGO-2024"
+      ],
+      "hit_at_3": true,
+      "elapsed_ms": 21.95
+    },
+    {
+      "query": "SGLT2 fasting surgery critical illness ketosis advice",
+      "expected": "KDIGO-2024",
+      "retrieved": [
+        "KDIGO-2024",
+        "NG28-INITIAL",
+        "NG28-RENAL"
+      ],
+      "hit_at_3": true,
+      "elapsed_ms": 21.76
+    },
+    {
+      "query": "individual preferences diet lifestyle HbA1c follow up interval",
+      "expected": "NG28-CARE",
+      "retrieved": [
+        "NG28-CARE",
+        "NG28-INITIAL",
+        "CPIC-STATIN"
+      ],
+      "hit_at_3": true,
+      "elapsed_ms": 21.17
+    },
+    {
+      "query": "insulin sulfonylurea hypoglycaemia review adverse effects",
+      "expected": "NG28-REVIEW",
+      "retrieved": [
+        "NG28-REVIEW",
+        "NG28-INITIAL",
+        "CPIC-STATIN"
+      ],
+      "hit_at_3": true,
+      "elapsed_ms": 21.7
+    }
+  ],
+  "limitation": "Five small developer-authored retrieval checks; not a clinical or generation-quality evaluation."
+}
