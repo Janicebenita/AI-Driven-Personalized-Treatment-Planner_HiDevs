@@ -1,0 +1,17 @@
+.git
+.venv/
+.runtime/
+.careweave/
+__pycache__/
+**/__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+node_modules/
+dist/
+artifacts/
+.openai/
+*.tar.gz
+*.zip
