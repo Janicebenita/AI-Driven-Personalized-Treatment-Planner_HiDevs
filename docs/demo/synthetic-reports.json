@@ -1,0 +1,677 @@
+{
+  "maya": {
+    "version": "careweave-1.0.0",
+    "createdAt": "2026-11-14T16:15:56.322Z",
+    "status": "review-required",
+    "profile": {
+      "label": "Maya \u00b7 kidney + genetics",
+      "age": 58,
+      "diagnosis": "t2d",
+      "hba1c": 8.4,
+      "egfr": 42,
+      "bmi": 31,
+      "medications": "metformin, simvastatin",
+      "allergies": "None known",
+      "genetics": "poor",
+      "ckd": true,
+      "hf": false,
+      "frail": false,
+      "pregnant": false,
+      "acute": false,
+      "lifestyle": "Vegetarian meals; sedentary desk work",
+      "goal": "Protect kidney health and avoid injections",
+      "budget": "limited",
+      "notes": "Synthetic case. CKD diagnosis previously confirmed."
+    },
+    "risks": [
+      {
+        "severity": "medium",
+        "title": "Review renal suitability of metformin",
+        "detail": "Reduced kidney function requires current label, dose and trend review. The prototype does not calculate a dose.",
+        "source": "NG28-RENAL"
+      },
+      {
+        "severity": "high",
+        "title": "Gene\u2013drug safety signal",
+        "detail": "Verified SLCO1B1 poor function plus simvastatin warrants pharmacist/prescriber review for an alternative. Ask about muscle pain, weakness or dark urine.",
+        "source": "CPIC-STATIN"
+      }
+    ],
+    "options": [
+      {
+        "title": "Review the metformin + SGLT2 pathway",
+        "detail": "Discuss suitability, current therapy, renal labels and contraindications. This is a class-level option for clinician review, not an instruction to start a drug.",
+        "why": "eGFR 42; confirmed CKD makes kidney protection relevant.",
+        "source": "NG28-RENAL"
+      },
+      {
+        "title": "Agree a feasible nutrition and movement plan",
+        "detail": "Build around Vegetarian meals; sedentary desk work. Choose one achievable food change and activity goal with the care team; adapt activity for symptoms, falls risk and comorbidities.",
+        "why": "Patient priority: Protect kidney health and avoid injections.",
+        "source": "NG28-CARE"
+      },
+      {
+        "title": "Check affordability before choosing an agent",
+        "detail": "Review formulary coverage, generic options and out-of-pocket cost with a pharmacist; ask which treatments are realistically sustainable.",
+        "why": "Limited budget is recorded. Actual costs and insurance coverage are unknown.",
+        "source": "NG28-CARE"
+      }
+    ],
+    "monitoring": [
+      {
+        "when": "Before a change",
+        "task": "Reconcile medicines and allergies; verify renal trend, urine ACR, blood pressure, relevant contraindications, access and shared HbA1c goal.",
+        "source": "NG28-CARE"
+      },
+      {
+        "when": "Early after a change",
+        "task": "Clinician sets timing for renal function, volume status and blood pressure review based on the selected medicine and baseline risk.",
+        "source": "KDIGO-2024"
+      },
+      {
+        "when": "3\u20136 months",
+        "task": "Review HbA1c until stable, treatment tolerance and the patient\u2019s goal; agree whether the plan should change.",
+        "source": "NG28-CARE"
+      },
+      {
+        "when": "If SGLT2 is selected",
+        "task": "Provide written sick-day and surgery/fasting advice; discuss ketosis symptoms and when to seek urgent care. Follow the local medicine label.",
+        "source": "KDIGO-2024"
+      }
+    ],
+    "trace": [
+      {
+        "step": "01",
+        "title": "Check scope and urgency",
+        "detail": "Adult type 2 diabetes; no urgent symptom flag in the supplied profile."
+      },
+      {
+        "step": "02",
+        "title": "Connect patient factors",
+        "detail": "eGFR 42; HbA1c 8.4%; confirmed CKD; genetics poor; budget limited."
+      },
+      {
+        "step": "03",
+        "title": "Retrieve and constrain",
+        "detail": "MiniLM sentence embeddings and cosine retrieval rank source-aware chunks. Rule-linked sources are retained. Similarity is not clinical confidence."
+      },
+      {
+        "step": "04",
+        "title": "Require human review",
+        "detail": "No doses, prescriptions or automatic approval. Sources and missing information remain visible."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "NG28-RENAL",
+        "title": "Diabetes with chronic kidney disease",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Initial medicines, 1.18",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines#people-with-chronic-kidney-disease",
+        "tags": "diabetes kidney renal egfr ckd albuminuria metformin sglt2 dpp4",
+        "summary": "Kidney function changes the diabetes pathway. At eGFR \u226530, metformin and SGLT-2 options feature; at 20\u201329, selected SGLT-2 and DPP-4 options feature; below 20 a DPP-4 option may be considered.",
+        "scope": "UK pathway; drug-specific renal labels still apply.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "c7e46c1965a418e4deae9b27cbe5c3ca367564aaadf252ac0ef46625dd7f4942"
+      },
+      {
+        "id": "NG28-INITIAL",
+        "title": "Initial medicines for type 2 diabetes",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Initial medicines, sections 1.13\u20131.19",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines",
+        "tags": "diabetes metformin sglt2 heart failure cardiovascular obesity initial medicine glucose",
+        "summary": "The adult type 2 diabetes pathways use metformin and SGLT-2 options, with comorbidity-specific selection and suitability checks.",
+        "scope": "Class-level discussion only; verify current local label and availability.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "4743b20a957c40aeda434f7fa756c9788b97eec01ff361d83dd060fc2f726f9e"
+      },
+      {
+        "id": "CPIC-STATIN",
+        "title": "SLCO1B1 and statin-associated muscle symptoms",
+        "publisher": "CPIC",
+        "year": "2022",
+        "section": "Simvastatin recommendations, Table 2",
+        "url": "https://files.cpicpgx.org/data/guideline/publication/statins/2022/publication.pdf",
+        "tags": "genetics slco1b1 simvastatin statin poor decreased function myopathy muscle risk",
+        "summary": "Reduced SLCO1B1 function raises simvastatin muscle-toxicity risk. CPIC recommends alternative statin selection for poor function; use the verified phenotype and full medication context.",
+        "scope": "Applies to an existing validated genetic result; does not justify routine testing or infer ancestry.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "5f51cd06b5e476267b5dac18ff23c186392957a65de44c290b09fa6f6e763290"
+      },
+      {
+        "id": "KDIGO-2024",
+        "title": "CKD evaluation and management",
+        "publisher": "KDIGO",
+        "year": "2024",
+        "section": "Chapter 3, SGLT2 inhibitors; practice points 3.7",
+        "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+        "tags": "kidney ckd egfr albuminuria sglt2 fasting surgery ketosis renal monitoring",
+        "summary": "SGLT2 therapy in eligible CKD needs renal and volume assessment. Withholding during prolonged fasting, surgery or critical illness may reduce ketosis risk.",
+        "scope": "Eligibility, current product label and clinical supervision must be checked.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "63161524a77803f853dd065961ada95cd061b66eeaf4ba9e099a4f9a086d846b"
+      },
+      {
+        "id": "NG28-CARE",
+        "title": "Individualised care and shared decisions",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Individualised care",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Recommendations",
+        "tags": "diabetes lifestyle diet exercise goals preferences cost frailty hypoglycaemia monitoring hba1c",
+        "summary": "Agree goals around comorbidities, preferences and daily life. Review HbA1c every 3\u20136 months until stable, then every 6 months. Adapt dietary advice to the individual.",
+        "scope": "UK guideline; local clinical judgement required.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "18b52525cb8e501babf9b431bca9be950123347cf206ac2c88c33f135aa11013"
+      }
+    ],
+    "mode": "semantic-retrieval-only",
+    "ai": null,
+    "missing": [
+      "Urine albumin-to-creatinine ratio and renal trend",
+      "Medication doses, adherence and complete interaction review",
+      "Blood pressure, cardiovascular history and adverse reactions",
+      "Shared HbA1c target, local formulary and verified genetic report"
+    ],
+    "limitations": [
+      "Research prototype; not clinically validated or a substitute for a licensed clinician.",
+      "Bounded adult type 2 diabetes pathway. Interaction and allergy screening are incomplete.",
+      "UK NICE pathways and international KDIGO/CPIC evidence; local licensing and practice may differ.",
+      "No benefit probability or clinical confidence score is calculated."
+    ],
+    "retrieval": {
+      "method": "MiniLM semantic cosine",
+      "backend": "chroma",
+      "model": "sentence-transformers/all-MiniLM-L6-v2",
+      "corpus_sha256": "2c414730fdf41df48501c3169f2b6c20817bd3ed6ee6b5dd99b38d33e2d29b83",
+      "matches": [
+        {
+          "chunk_id": "NG28-RENAL:0:70b1b5626098",
+          "text": "Kidney function changes the diabetes pathway. At eGFR \u226530, metformin and SGLT-2 options feature; at 20\u201329, selected SGLT-2 and DPP-4 options feature; below 20 a DPP-4 option may be considered.",
+          "publisher": "NICE",
+          "source_id": "NG28-RENAL",
+          "content_sha256": "70b1b562609819e00fca09a7372234b881ca4822085d4785c0858675ebea8d06",
+          "title": "Diabetes with chronic kidney disease",
+          "year": "2026",
+          "token_start": 0,
+          "retrieved_at": "2026-11-14",
+          "token_end": 55,
+          "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines#people-with-chronic-kidney-disease",
+          "section": "Initial medicines, 1.18",
+          "cosine_similarity": 0.638774
+        },
+        {
+          "chunk_id": "NG28-INITIAL:0:c2ec821108dd",
+          "text": "The adult type 2 diabetes pathways use metformin and SGLT-2 options, with comorbidity-specific selection and suitability checks.",
+          "publisher": "NICE",
+          "year": "2026",
+          "content_sha256": "c2ec821108dde769425b90674ae2840c31d2920a037c200d1c9169b62e29c1da",
+          "title": "Initial medicines for type 2 diabetes",
+          "source_id": "NG28-INITIAL",
+          "token_start": 0,
+          "token_end": 30,
+          "retrieved_at": "2026-11-14",
+          "section": "Initial medicines, sections 1.13\u20131.19",
+          "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines",
+          "cosine_similarity": 0.523107
+        },
+        {
+          "chunk_id": "CPIC-STATIN:0:038110c4e9dd",
+          "text": "Reduced SLCO1B1 function raises simvastatin muscle-toxicity risk. CPIC recommends alternative statin selection for poor function; use the verified phenotype and full medication context.",
+          "retrieved_at": "2026-11-14",
+          "token_start": 0,
+          "year": "2022",
+          "content_sha256": "038110c4e9dd6990a652bf03105a1a6efc04d1550febd340a22293b55d284918",
+          "token_end": 39,
+          "source_id": "CPIC-STATIN",
+          "url": "https://files.cpicpgx.org/data/guideline/publication/statins/2022/publication.pdf",
+          "title": "SLCO1B1 and statin-associated muscle symptoms",
+          "publisher": "CPIC",
+          "section": "Simvastatin recommendations, Table 2",
+          "cosine_similarity": 0.522289
+        },
+        {
+          "chunk_id": "KDIGO-2024:0:8861e7b323ed",
+          "text": "SGLT2 therapy in eligible CKD needs renal and volume assessment. Withholding during prolonged fasting, surgery or critical illness may reduce ketosis risk.",
+          "token_end": 31,
+          "retrieved_at": "2026-11-14",
+          "token_start": 0,
+          "year": "2024",
+          "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+          "publisher": "KDIGO",
+          "title": "CKD evaluation and management",
+          "content_sha256": "8861e7b323edf233dcbf322569fe9da2c69c94effc89a8f20d4cd606bd3bfe54",
+          "section": "Chapter 3, SGLT2 inhibitors; practice points 3.7",
+          "source_id": "KDIGO-2024",
+          "cosine_similarity": 0.503271
+        }
+      ],
+      "fallback_reason": null
+    },
+    "elapsed_ms": 326.62
+  },
+  "renal_counterfactual": {
+    "version": "careweave-1.0.0",
+    "createdAt": "2026-11-14T16:15:56.628Z",
+    "status": "review-required",
+    "profile": {
+      "label": "Maya \u00b7 kidney + genetics",
+      "age": 58,
+      "diagnosis": "t2d",
+      "hba1c": 8.4,
+      "egfr": 24,
+      "bmi": 31,
+      "medications": "metformin, simvastatin",
+      "allergies": "None known",
+      "genetics": "poor",
+      "ckd": true,
+      "hf": false,
+      "frail": false,
+      "pregnant": false,
+      "acute": false,
+      "lifestyle": "Vegetarian meals; sedentary desk work",
+      "goal": "Protect kidney health and avoid injections",
+      "budget": "limited",
+      "notes": "Synthetic case. CKD diagnosis previously confirmed."
+    },
+    "risks": [
+      {
+        "severity": "high",
+        "title": "Metformin needs prompt prescriber review",
+        "detail": "eGFR 24 is below the metformin threshold in the selected renal pathway. Contact the prescriber promptly for a supervised review; do not change treatment independently.",
+        "source": "NG28-RENAL"
+      },
+      {
+        "severity": "high",
+        "title": "Gene\u2013drug safety signal",
+        "detail": "Verified SLCO1B1 poor function plus simvastatin warrants pharmacist/prescriber review for an alternative. Ask about muscle pain, weakness or dark urine.",
+        "source": "CPIC-STATIN"
+      }
+    ],
+    "options": [
+      {
+        "title": "Use a kidney-specific treatment review",
+        "detail": "Discuss a selected SGLT2 and DPP-4 pathway with the renal/diabetes team. Verify each agent\u2019s local indication and renal label.",
+        "why": "eGFR 24 changes the pathway and excludes the routine metformin option.",
+        "source": "NG28-RENAL"
+      },
+      {
+        "title": "Agree a feasible nutrition and movement plan",
+        "detail": "Build around Vegetarian meals; sedentary desk work. Choose one achievable food change and activity goal with the care team; adapt activity for symptoms, falls risk and comorbidities.",
+        "why": "Patient priority: Protect kidney health and avoid injections.",
+        "source": "NG28-CARE"
+      },
+      {
+        "title": "Check affordability before choosing an agent",
+        "detail": "Review formulary coverage, generic options and out-of-pocket cost with a pharmacist; ask which treatments are realistically sustainable.",
+        "why": "Limited budget is recorded. Actual costs and insurance coverage are unknown.",
+        "source": "NG28-CARE"
+      }
+    ],
+    "monitoring": [
+      {
+        "when": "Before a change",
+        "task": "Reconcile medicines and allergies; verify renal trend, urine ACR, blood pressure, relevant contraindications, access and shared HbA1c goal.",
+        "source": "NG28-CARE"
+      },
+      {
+        "when": "Early after a change",
+        "task": "Clinician sets timing for renal function, volume status and blood pressure review based on the selected medicine and baseline risk.",
+        "source": "KDIGO-2024"
+      },
+      {
+        "when": "3\u20136 months",
+        "task": "Review HbA1c until stable, treatment tolerance and the patient\u2019s goal; agree whether the plan should change.",
+        "source": "NG28-CARE"
+      },
+      {
+        "when": "If SGLT2 is selected",
+        "task": "Provide written sick-day and surgery/fasting advice; discuss ketosis symptoms and when to seek urgent care. Follow the local medicine label.",
+        "source": "KDIGO-2024"
+      }
+    ],
+    "trace": [
+      {
+        "step": "01",
+        "title": "Check scope and urgency",
+        "detail": "Adult type 2 diabetes; no urgent symptom flag in the supplied profile."
+      },
+      {
+        "step": "02",
+        "title": "Connect patient factors",
+        "detail": "eGFR 24; HbA1c 8.4%; confirmed CKD; genetics poor; budget limited."
+      },
+      {
+        "step": "03",
+        "title": "Retrieve and constrain",
+        "detail": "MiniLM sentence embeddings and cosine retrieval rank source-aware chunks. Rule-linked sources are retained. Similarity is not clinical confidence."
+      },
+      {
+        "step": "04",
+        "title": "Require human review",
+        "detail": "No doses, prescriptions or automatic approval. Sources and missing information remain visible."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "NG28-RENAL",
+        "title": "Diabetes with chronic kidney disease",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Initial medicines, 1.18",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines#people-with-chronic-kidney-disease",
+        "tags": "diabetes kidney renal egfr ckd albuminuria metformin sglt2 dpp4",
+        "summary": "Kidney function changes the diabetes pathway. At eGFR \u226530, metformin and SGLT-2 options feature; at 20\u201329, selected SGLT-2 and DPP-4 options feature; below 20 a DPP-4 option may be considered.",
+        "scope": "UK pathway; drug-specific renal labels still apply.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "c7e46c1965a418e4deae9b27cbe5c3ca367564aaadf252ac0ef46625dd7f4942"
+      },
+      {
+        "id": "NG28-INITIAL",
+        "title": "Initial medicines for type 2 diabetes",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Initial medicines, sections 1.13\u20131.19",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines",
+        "tags": "diabetes metformin sglt2 heart failure cardiovascular obesity initial medicine glucose",
+        "summary": "The adult type 2 diabetes pathways use metformin and SGLT-2 options, with comorbidity-specific selection and suitability checks.",
+        "scope": "Class-level discussion only; verify current local label and availability.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "4743b20a957c40aeda434f7fa756c9788b97eec01ff361d83dd060fc2f726f9e"
+      },
+      {
+        "id": "CPIC-STATIN",
+        "title": "SLCO1B1 and statin-associated muscle symptoms",
+        "publisher": "CPIC",
+        "year": "2022",
+        "section": "Simvastatin recommendations, Table 2",
+        "url": "https://files.cpicpgx.org/data/guideline/publication/statins/2022/publication.pdf",
+        "tags": "genetics slco1b1 simvastatin statin poor decreased function myopathy muscle risk",
+        "summary": "Reduced SLCO1B1 function raises simvastatin muscle-toxicity risk. CPIC recommends alternative statin selection for poor function; use the verified phenotype and full medication context.",
+        "scope": "Applies to an existing validated genetic result; does not justify routine testing or infer ancestry.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "5f51cd06b5e476267b5dac18ff23c186392957a65de44c290b09fa6f6e763290"
+      },
+      {
+        "id": "KDIGO-2024",
+        "title": "CKD evaluation and management",
+        "publisher": "KDIGO",
+        "year": "2024",
+        "section": "Chapter 3, SGLT2 inhibitors; practice points 3.7",
+        "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+        "tags": "kidney ckd egfr albuminuria sglt2 fasting surgery ketosis renal monitoring",
+        "summary": "SGLT2 therapy in eligible CKD needs renal and volume assessment. Withholding during prolonged fasting, surgery or critical illness may reduce ketosis risk.",
+        "scope": "Eligibility, current product label and clinical supervision must be checked.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "63161524a77803f853dd065961ada95cd061b66eeaf4ba9e099a4f9a086d846b"
+      },
+      {
+        "id": "NG28-CARE",
+        "title": "Individualised care and shared decisions",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Individualised care",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Recommendations",
+        "tags": "diabetes lifestyle diet exercise goals preferences cost frailty hypoglycaemia monitoring hba1c",
+        "summary": "Agree goals around comorbidities, preferences and daily life. Review HbA1c every 3\u20136 months until stable, then every 6 months. Adapt dietary advice to the individual.",
+        "scope": "UK guideline; local clinical judgement required.",
+        "retrieved_at": "2026-11-14",
+        "format": "curated-summary",
+        "review_status": "prototype-curated",
+        "license_note": "Original short paraphrase; source rights apply.",
+        "content_sha256": "18b52525cb8e501babf9b431bca9be950123347cf206ac2c88c33f135aa11013"
+      }
+    ],
+    "mode": "semantic-retrieval-only",
+    "ai": null,
+    "missing": [
+      "Urine albumin-to-creatinine ratio and renal trend",
+      "Medication doses, adherence and complete interaction review",
+      "Blood pressure, cardiovascular history and adverse reactions",
+      "Shared HbA1c target, local formulary and verified genetic report"
+    ],
+    "limitations": [
+      "Research prototype; not clinically validated or a substitute for a licensed clinician.",
+      "Bounded adult type 2 diabetes pathway. Interaction and allergy screening are incomplete.",
+      "UK NICE pathways and international KDIGO/CPIC evidence; local licensing and practice may differ.",
+      "No benefit probability or clinical confidence score is calculated."
+    ],
+    "retrieval": {
+      "method": "MiniLM semantic cosine",
+      "backend": "chroma",
+      "model": "sentence-transformers/all-MiniLM-L6-v2",
+      "corpus_sha256": "2c414730fdf41df48501c3169f2b6c20817bd3ed6ee6b5dd99b38d33e2d29b83",
+      "matches": [
+        {
+          "chunk_id": "NG28-RENAL:0:70b1b5626098",
+          "text": "Kidney function changes the diabetes pathway. At eGFR \u226530, metformin and SGLT-2 options feature; at 20\u201329, selected SGLT-2 and DPP-4 options feature; below 20 a DPP-4 option may be considered.",
+          "retrieved_at": "2026-11-14",
+          "token_end": 55,
+          "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines#people-with-chronic-kidney-disease",
+          "section": "Initial medicines, 1.18",
+          "content_sha256": "70b1b562609819e00fca09a7372234b881ca4822085d4785c0858675ebea8d06",
+          "publisher": "NICE",
+          "source_id": "NG28-RENAL",
+          "title": "Diabetes with chronic kidney disease",
+          "year": "2026",
+          "token_start": 0,
+          "cosine_similarity": 0.649526
+        },
+        {
+          "chunk_id": "NG28-INITIAL:0:c2ec821108dd",
+          "text": "The adult type 2 diabetes pathways use metformin and SGLT-2 options, with comorbidity-specific selection and suitability checks.",
+          "token_end": 30,
+          "section": "Initial medicines, sections 1.13\u20131.19",
+          "title": "Initial medicines for type 2 diabetes",
+          "publisher": "NICE",
+          "token_start": 0,
+          "year": "2026",
+          "retrieved_at": "2026-11-14",
+          "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines",
+          "source_id": "NG28-INITIAL",
+          "content_sha256": "c2ec821108dde769425b90674ae2840c31d2920a037c200d1c9169b62e29c1da",
+          "cosine_similarity": 0.520549
+        },
+        {
+          "chunk_id": "CPIC-STATIN:0:038110c4e9dd",
+          "text": "Reduced SLCO1B1 function raises simvastatin muscle-toxicity risk. CPIC recommends alternative statin selection for poor function; use the verified phenotype and full medication context.",
+          "retrieved_at": "2026-11-14",
+          "url": "https://files.cpicpgx.org/data/guideline/publication/statins/2022/publication.pdf",
+          "source_id": "CPIC-STATIN",
+          "year": "2022",
+          "publisher": "CPIC",
+          "title": "SLCO1B1 and statin-associated muscle symptoms",
+          "content_sha256": "038110c4e9dd6990a652bf03105a1a6efc04d1550febd340a22293b55d284918",
+          "token_start": 0,
+          "section": "Simvastatin recommendations, Table 2",
+          "token_end": 39,
+          "cosine_similarity": 0.512434
+        },
+        {
+          "chunk_id": "KDIGO-2024:0:8861e7b323ed",
+          "text": "SGLT2 therapy in eligible CKD needs renal and volume assessment. Withholding during prolonged fasting, surgery or critical illness may reduce ketosis risk.",
+          "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+          "publisher": "KDIGO",
+          "token_end": 31,
+          "retrieved_at": "2026-11-14",
+          "source_id": "KDIGO-2024",
+          "content_sha256": "8861e7b323edf233dcbf322569fe9da2c69c94effc89a8f20d4cd606bd3bfe54",
+          "title": "CKD evaluation and management",
+          "section": "Chapter 3, SGLT2 inhibitors; practice points 3.7",
+          "token_start": 0,
+          "year": "2024",
+          "cosine_similarity": 0.508144
+        }
+      ],
+      "fallback_reason": null
+    },
+    "elapsed_ms": 159.15
+  },
+  "urgent": {
+    "version": "careweave-1.0.0",
+    "createdAt": "2026-11-14T16:15:56.776Z",
+    "status": "withheld",
+    "profile": {
+      "label": "Maya \u00b7 kidney + genetics",
+      "age": 58,
+      "diagnosis": "t2d",
+      "hba1c": 8.4,
+      "egfr": 42,
+      "bmi": 31,
+      "medications": "metformin, simvastatin",
+      "allergies": "None known",
+      "genetics": "poor",
+      "ckd": true,
+      "hf": false,
+      "frail": false,
+      "pregnant": false,
+      "acute": true,
+      "lifestyle": "Vegetarian meals; sedentary desk work",
+      "goal": "Protect kidney health and avoid injections",
+      "budget": "limited",
+      "notes": "Synthetic case. CKD diagnosis previously confirmed."
+    },
+    "risks": [
+      {
+        "severity": "critical",
+        "title": "Urgent assessment takes priority",
+        "detail": "Acute symptoms were reported. Seek urgent in-person assessment; use local emergency services for severe symptoms. Routine planning is withheld.",
+        "source": "Clinical safety gate"
+      },
+      {
+        "severity": "medium",
+        "title": "Review renal suitability of metformin",
+        "detail": "Reduced kidney function requires current label, dose and trend review. The prototype does not calculate a dose.",
+        "source": "NG28-RENAL"
+      },
+      {
+        "severity": "high",
+        "title": "Gene\u2013drug safety signal",
+        "detail": "Verified SLCO1B1 poor function plus simvastatin warrants pharmacist/prescriber review for an alternative. Ask about muscle pain, weakness or dark urine.",
+        "source": "CPIC-STATIN"
+      }
+    ],
+    "options": [],
+    "monitoring": [],
+    "trace": [
+      {
+        "step": "01",
+        "title": "Check scope and urgency",
+        "detail": "Routine options withheld by an independent safety gate."
+      },
+      {
+        "step": "02",
+        "title": "Connect patient factors",
+        "detail": "eGFR 42; HbA1c 8.4%; confirmed CKD; genetics poor; budget limited."
+      },
+      {
+        "step": "03",
+        "title": "Retrieve and constrain",
+        "detail": "TF-IDF cosine search ranks a curated evidence corpus. Renal, gene\u2013drug and medication checks run separately; retrieval similarity is not clinical confidence."
+      },
+      {
+        "step": "04",
+        "title": "Require human review",
+        "detail": "No doses, prescriptions or automatic approval. Sources and missing information remain visible."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "CPIC-STATIN",
+        "title": "SLCO1B1 and statin-associated muscle symptoms",
+        "publisher": "CPIC",
+        "year": "2022",
+        "section": "Simvastatin recommendations, Table 2",
+        "url": "https://files.cpicpgx.org/data/guideline/publication/statins/2022/publication.pdf",
+        "tags": "genetics slco1b1 simvastatin statin poor decreased function myopathy muscle risk",
+        "summary": "Reduced SLCO1B1 function raises simvastatin muscle-toxicity risk. CPIC recommends alternative statin selection for poor function; use the verified phenotype and full medication context.",
+        "scope": "Applies to an existing validated genetic result; does not justify routine testing or infer ancestry.",
+        "score": 0.2517
+      },
+      {
+        "id": "NG28-RENAL",
+        "title": "Diabetes with chronic kidney disease",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Initial medicines, 1.18",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines#people-with-chronic-kidney-disease",
+        "tags": "diabetes kidney renal egfr ckd albuminuria metformin sglt2 dpp4",
+        "summary": "Kidney function changes the diabetes pathway. At eGFR \u226530, metformin and SGLT-2 options feature; at 20\u201329, selected SGLT-2 and DPP-4 options feature; below 20 a DPP-4 option may be considered.",
+        "scope": "UK pathway; drug-specific renal labels still apply.",
+        "score": 0.2014
+      },
+      {
+        "id": "KDIGO-2024",
+        "title": "CKD evaluation and management",
+        "publisher": "KDIGO",
+        "year": "2024",
+        "section": "Chapter 3, SGLT2 inhibitors; practice points 3.7",
+        "url": "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf",
+        "tags": "kidney ckd egfr albuminuria sglt2 fasting surgery ketosis renal monitoring",
+        "summary": "SGLT2 therapy in eligible CKD needs renal and volume assessment. Withholding during prolonged fasting, surgery or critical illness may reduce ketosis risk.",
+        "scope": "Eligibility, current product label and clinical supervision must be checked.",
+        "score": 0.1572
+      },
+      {
+        "id": "NG28-INITIAL",
+        "title": "Initial medicines for type 2 diabetes",
+        "publisher": "NICE",
+        "year": "2026",
+        "section": "Initial medicines, sections 1.13\u20131.19",
+        "url": "https://www.nice.org.uk/guidance/ng28/chapter/Initial-medicines",
+        "tags": "diabetes metformin sglt2 heart failure cardiovascular obesity initial medicine glucose",
+        "summary": "The adult type 2 diabetes pathways use metformin and SGLT-2 options, with comorbidity-specific selection and suitability checks.",
+        "scope": "Class-level discussion only; verify current local label and availability.",
+        "score": 0.0787
+      }
+    ],
+    "mode": "rules-only",
+    "ai": null,
+    "missing": [
+      "Urine albumin-to-creatinine ratio and renal trend",
+      "Medication doses, adherence and complete interaction review",
+      "Blood pressure, cardiovascular history and adverse reactions",
+      "Shared HbA1c target, local formulary and verified genetic report"
+    ],
+    "limitations": [
+      "Research prototype; not clinically validated or a substitute for a licensed clinician.",
+      "Bounded adult type 2 diabetes pathway. Interaction and allergy screening are incomplete.",
+      "UK NICE pathways and international KDIGO/CPIC evidence; local licensing and practice may differ.",
+      "No benefit probability or clinical confidence score is calculated."
+    ],
+    "retrieval": {
+      "method": "not-run",
+      "matches": []
+    }
+  }
+}

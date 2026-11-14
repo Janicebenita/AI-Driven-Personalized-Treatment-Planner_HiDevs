@@ -2,7 +2,7 @@
 
 **Tagline:** A clinician-review workspace that connects patient context, evidence and safety signals into a transparent care discussion.
 
-**Repository:** https://github.com/Janicebenita/AI-Driven-Personalized-Treatment-Planner_HiDevs
+**Repository:** https://github.com/Janicebenita/treatment_planner_hidevs
 
 ## Problem
 
@@ -30,4 +30,8 @@ Python, Streamlit, Sentence Transformers / MiniLM, Chroma, optional FAISS, Groq 
 
 ## Submission status
 
-Prepared locally. **Not submitted.** The actual challenge submission form, deadline, rules, required assets and judge access have not been verified. The provided Codespace URL is a coding environment rather than a submission destination. Do not represent this draft as a completed challenge entry.
+The actual challenge is [HiDevs project 83](https://app.hidevs.xyz/projects/83?tab=submission). Its guidelines require a public repository named `treatment_planner_hidevs`, code, sample patient data, README setup/usage instructions and a demo video. Output must include a treatment plan, rationale, citations, risks, monitoring and flagged data gaps. The form accepts GitHub and Demo URLs. It displayed one day remaining on 14 November 2026; no absolute deadline timestamp was shown.
+
+The original repository was renamed at the participant's request, preserving its history and pull requests. The README links a public video walkthrough of actual synthetic pipeline outputs and discloses the unconfigured live provider. Cloud Run deployment remains disabled at the participant's explicit request.
+
+**Not submitted yet.** Prepared links must be verified and the actual HiDevs confirmation observed before this status changes.

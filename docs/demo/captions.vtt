@@ -1,0 +1,41 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:12.000
+Evidence into care
+A transparent, clinician-review treatment planning prototype
+
+00:00:12.000 --> 00:00:24.000
+01  Meet the synthetic patient
+Maya: adult type 2 diabetes with confirmed CKD
+
+00:00:24.000 --> 00:00:38.000
+02  A personalized discussion
+The plan explains which patient factors shaped the options
+
+00:00:38.000 --> 00:00:52.000
+03  Make risk visible
+The safety layer runs independently of the language model
+
+00:00:52.000 --> 00:01:06.000
+04  Change one factor
+Counterfactual: eGFR 42 -> 24, with other inputs held constant
+
+00:01:06.000 --> 00:01:20.000
+05  Inspect the evidence
+Actual local MiniLM embeddings and Chroma cosine retrieval
+
+00:01:20.000 --> 00:01:34.000
+06  Plan the follow-up
+Monitoring remains tied to explicit evidence sources
+
+00:01:34.000 --> 00:01:46.000
+07  Know when to stop
+Counterfactual: acute symptoms flag enabled
+
+00:01:46.000 --> 00:02:00.000
+08  Be explicit about gaps
+A useful report makes uncertainty and limits inspectable
+
+00:02:00.000 --> 00:02:14.000
+CareWeave: ready for review
+Reproducible code, public synthetic cases, inspectable evidence
